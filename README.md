@@ -6,13 +6,13 @@ Stt..... this package simple to use 🤫
 
 ## Demo 😎
 **Full Demo**
-<iframe src="https://giphy.com/embed/WIURSHVcoKGV8YWR1w" width="243" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+![Full Demo](https://media.giphy.com/media/WIURSHVcoKGV8YWR1w/giphy.gif)
 
 **Pageview Slider**
-<iframe src="https://giphy.com/embed/0UcTUY865F0Rxk73Va" width="480" height="328" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+![Pageview Slider](https://media.giphy.com/media/0UcTUY865F0Rxk73Va/giphy.gif)
 
 **Single Page**
-<iframe src="https://giphy.com/embed/Ve85kqYGuRAdlcJ8AF" width="480" height="371" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+![Single Page](https://media.giphy.com/media/Ve85kqYGuRAdlcJ8AF/giphy.gif)
 
 ## Usage 🍽️
 
