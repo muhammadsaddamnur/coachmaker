@@ -5,13 +5,13 @@ Coach marks are temporary messages that educate users through new or unfamiliar 
 Stt..... this package simple to use 🤫
 
 ## Demo 😎
-**Full Demo**
+**Full Demo**<p>
 ![Full Demo](https://media.giphy.com/media/WIURSHVcoKGV8YWR1w/giphy.gif)
 
-**Pageview Slider**
+**Pageview Slider**<p>
 ![Pageview Slider](https://media.giphy.com/media/0UcTUY865F0Rxk73Va/giphy.gif)
 
-**Single Page**
+**Single Page**<p>
 ![Single Page](https://media.giphy.com/media/Ve85kqYGuRAdlcJ8AF/giphy.gif)
 
 ## Usage 🍽️
