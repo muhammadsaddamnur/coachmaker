@@ -49,19 +49,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            CoachPoint(
-              initial: '2',
+            SizedBox(
+              height: 5,
+            ),
+            Container(
+              color: Colors.yellow,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  color: Colors.red,
-                  height: 50,
-                  width: 100,
-                  child: Text(
-                    'You have pushed the button this many times:',
-                  ),
+                child: Text(
+                  'w',
                 ),
               ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CoachPoint(
+                  initial: '2',
+                  child: Container(
+                    color: Colors.red,
+                    height: 50,
+                    width: 100,
+                    child: Text(
+                      'You have pushed the button this many times:',
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 
 enum CoachMakerControl { none, next, close }
 
-class 
-
 class CoachMaker {
   final List<String> initialList;
   final BuildContext _context;
