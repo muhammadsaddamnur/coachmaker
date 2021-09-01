@@ -111,6 +111,6 @@ FloatingActionButton(
 If you find any errors or want to add improvements, you can open a issue or develop the fix and open a pull request. Thank you!
 
 ## Support Me 🙏
-<a href="https://buymeacoffee.com/saddamnur">![buymeacoffee.com/saddamnur](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg)</a>
+<a href="https://www.buymeacoffee.com/saddamnur">![buymeacoffee.com/saddamnur](https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-1.svg)</a>
 
-<a href="https://www.w3schools.com">![enter image description here](https://raw.githubusercontent.com/muhammadsaddamnur/float_bubble/main/saweria.png)</a>
+<a href="https://saweria.co/saddamnur">![enter image description here](https://raw.githubusercontent.com/muhammadsaddamnur/float_bubble/main/saweria.png)</a>
