@@ -1,5 +1,4 @@
 import 'package:coachmaker/coachmaker.dart';
-import 'package:coachmaker/src/models/coach_model.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // showPerformanceOverlay: true,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -46,19 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 50,
                 width: 100,
                 child: Text(
-                  'You have pushed the button this many times:',
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              color: Colors.yellow,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'w',
+                  'Sorot aku kakak',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
@@ -75,26 +65,30 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 50,
                     width: 100,
                     child: Text(
-                      'You have pushed the button this many times:',
+                      'Sorot aku kakak',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: 400,
+              height: 450,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CoachPoint(
-                  initial: '4',
+                  initial: '3',
                   child: Container(
                     color: Colors.red,
                     height: 50,
                     width: 100,
                     child: Text(
-                      'You have pushed the button this many times:',
+                      'Sorot aku kakak',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
@@ -105,56 +99,66 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: CoachPoint(
-        initial: '3',
+        initial: '4',
         child: FloatingActionButton(
           onPressed: () {
             CoachMaker(context,
                     initialList: [
                       CoachModel(
                           initial: '1',
-                          title: 'Ini Dia Nih',
+                          title: 'Indonesia',
+                          maxWidth: 400,
                           subtitle: [
-                            'Ini contoh aja',
-                            'banyak banget nih ya wkwkwkwkwkwwkwkwkwkwkwkwkwkwkwkwwkwkwkwkwkwkwkwwkwkwkwkw wkwkwkwkwkwwkwkwkwkwkwkwkwkwkwkwwkwkwkwkwkwkwkwwkwkwkwkw wkwkwkwkwkwwkwkwkwkwkwkwkwkwkwkwwkwkwkwkwkwkwkwwkwkwkwkw'
+                            '1. Aceh',
+                            '2. Jakarta',
+                            '3. Bali',
+                            '4. Papua',
+                            'Banyak dah pokoknyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
                           ],
-                          header: Image.network(
-                            'https://miro.medium.com/max/700/1*EmDB27i0r74-ynuin1GcWA.png',
+                          header: Image.asset(
+                            'images/logo.png',
                             height: 50,
                             width: 50,
                           )),
                       CoachModel(
                           initial: '2',
-                          title: 'Ini Dia ',
+                          title: 'Burung Bangau yang Angkuh',
+                          maxWidth: 400,
+                          alignment: Alignment.centerRight,
                           subtitle: [
-                            'Nihasdfuafouaifuiaugdaiggiigispogipogipodfihpgfihigfhigfhjigfhjigfihjgfjiopgfijfiojighfjifgjigfipo'
+                            'Seekor bangau berjalan dengan langkah yang anggun di sepanjang sebuah sungai kecil, matanya menatap air sungai yang jernih, leher dan paruhnya yang panjang siap untuk menangkap mangsa di air sebagai sarapan paginya. Saat itu, sungai dipenuhi dengan ikan-ikan yang berenang, tetapi sang Bangau merasa sedikit angkuh di pagi hari itu.'
                           ],
-                          header: Image.network(
-                            'https://miro.medium.com/max/700/1*EmDB27i0r74-ynuin1GcWA.png',
+                          header: Image.asset(
+                            'images/logo.png',
                             height: 50,
                             width: 50,
                           )),
                       CoachModel(
                           initial: '3',
-                          title: 'Ini Dia Nih',
+                          title: 'Burung perkutut, burung kuthilang',
+                          maxWidth: 400,
+                          alignment: Alignment.centerRight,
                           subtitle: [
-                            'Ini contoh aja',
+                            'kamu kentut enggak bilang bilang ',
                           ],
-                          header: Image.network(
-                            'https://miro.medium.com/max/700/1*EmDB27i0r74-ynuin1GcWA.png',
+                          header: Image.asset(
+                            'images/logo.png',
                             height: 50,
                             width: 50,
                           )),
                       CoachModel(
                           initial: '4',
-                          title: 'Ini Dia Nih',
+                          title: 'Balonku ada lima',
+                          maxWidth: 400,
+                          alignment: Alignment.center,
                           subtitle: [
-                            'Ini contoh aja',
+                            'Rupa-rupa warnanya\nHijau, kuning, kelabu\n\nMerah muda dan biru\nMeletus balon hijau DOR!',
                           ],
-                          header: Image.network(
-                            'https://miro.medium.com/max/700/1*EmDB27i0r74-ynuin1GcWA.png',
+                          header: Image.asset(
+                            'images/logo.png',
                             height: 50,
                             width: 50,
-                          ))
+                          )),
                     ],
                     nextStep: CoachMakerControl.next,
                     buttonOptions: CoachButtonOptions(

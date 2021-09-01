@@ -2,6 +2,8 @@ library coachmaker;
 
 export './src/widgets/widget_point.dart';
 export './src/models/coach_button_model.dart';
+export './src/models/coach_model.dart';
+
 import 'package:coachmaker/src/models/coach_button_model.dart';
 import 'package:coachmaker/src/models/coach_model.dart';
 import 'package:coachmaker/src/widgets/widget_main.dart';
@@ -21,7 +23,7 @@ class CoachMaker {
       this.buttonOptions});
 
   OverlayEntry? _overlayEntry;
-  int currentIndex = 0;
+  int _currentIndex = 0;
   double x = 0, y = 0, h = 0, w = 0;
 
   OverlayEntry _buildOverlay() {
@@ -33,7 +35,7 @@ class CoachMaker {
         w: w + 16,
         padding: 10,
         buttonOptions: buttonOptions ?? CoachButtonOptions(),
-        model: initialList[currentIndex],
+        model: initialList[_currentIndex],
         onTapNext: () {
           switch (nextStep) {
             case CoachMakerControl.next:
@@ -53,7 +55,7 @@ class CoachMaker {
 
   void show() {
     Future.delayed(Duration.zero, () {
-      RenderBox box = GlobalObjectKey(initialList[currentIndex].initial!)
+      RenderBox box = GlobalObjectKey(initialList[_currentIndex].initial!)
           .currentContext!
           .findRenderObject() as RenderBox;
 
@@ -76,8 +78,8 @@ class CoachMaker {
   }
 
   void nextOverlay() {
-    currentIndex++;
+    _currentIndex++;
     removeOverlay();
-    if (currentIndex < initialList.length) show();
+    if (_currentIndex < initialList.length) show();
   }
 }
