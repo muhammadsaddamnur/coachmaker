@@ -1,14 +1,29 @@
 library coachmaker;
 
+export './src/widgets/widget_point.dart';
+import 'package:coachmaker/src/widgets/widget_card.dart';
 import 'package:flutter/material.dart';
+
+import 'src/widgets/widget_container.dart';
+
+enum CoachMakerControl { none, next, close }
 
 class CoachMaker {
   final List<String> initialList;
   final BuildContext _context;
+  final CoachMakerControl pointOnTap;
 
-  CoachMaker(this._context, {required this.initialList});
+  CoachMaker(
+    this._context, {
+    required this.initialList,
+    this.pointOnTap = CoachMakerControl.close,
+  });
 
-  OverlayEntry _buildOverlay({x, y, h, w}) {
+  OverlayEntry? _overlayEntry;
+  int currentIndex = 0;
+  double x = 0, y = 0, h = 0, w = 0;
+
+  OverlayEntry _buildOverlay() {
     return OverlayEntry(builder: (context) {
       return Stack(
         fit: StackFit.expand,
@@ -19,35 +34,63 @@ class CoachMaker {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      backgroundBlendMode: BlendMode
-                          .dstOut), // This one will handle background + difference out
-                ),
-                Positioned(
-                  left: x - 8,
-                  top: y - 8,
+                GestureDetector(
+                  onTap: () {
+                    // removeOverlay();
+                  },
                   child: Container(
-                    height: h + 16,
-                    width: w + 16,
                     decoration: BoxDecoration(
-                      color: Colors.red,
-                    ),
+                        color: Colors.black,
+                        backgroundBlendMode: BlendMode
+                            .dstOut), // This one will handle background + difference out
                   ),
+                ),
+                // Positioned(
+                //   left: x - 8,
+                //   top: y - 8,
+                //   child: Container(
+                //     height: h + 16,
+                //     width: w + 16,
+                //     decoration: BoxDecoration(
+                //       color: Colors.red,
+                //     ),
+                //   ),
+                // ),
+                WidgetContainer(
+                  x: x - 8,
+                  y: y - 8,
+                  height: h + 16,
+                  width: w + 16,
+                  padding: 10,
+                  onTap: () {
+                    switch (pointOnTap) {
+                      case CoachMakerControl.next:
+                        nextOverlay();
+                        break;
+                      case CoachMakerControl.close:
+                        removeOverlay();
+                        break;
+                      case CoachMakerControl.none:
+                        break;
+                      default:
+                    }
+                  },
                 ),
               ],
             ),
           ),
-          Positioned(
-            left: x,
-            top: y + h,
-            child: Material(
-              child: Text(
-                'Overlay',
-              ),
-            ),
-          ),
+          // Positioned(
+          //   left: x,
+          //   top: y + h,
+          //   child: Card(
+          //     child: Text(
+          //       'Overlay',
+          //     ),
+          //   ),
+          // ),
+          WidgetCard(
+            top: y + h + 24,
+          )
         ],
       );
     });
@@ -55,34 +98,33 @@ class CoachMaker {
 
   void show() {
     Future.delayed(Duration.zero, () {
-      RenderBox box =
-          GlobalObjectKey('1').currentContext!.findRenderObject() as RenderBox;
+      RenderBox box = GlobalObjectKey(initialList[currentIndex])
+          .currentContext!
+          .findRenderObject() as RenderBox;
 
       Offset position = box.localToGlobal(Offset.zero);
-      double y = position.dy;
-      double x = position.dx;
-      double height = box.size.height;
-      double width = box.size.width;
+      y = position.dy;
+      x = position.dx;
+      h = box.size.height;
+      w = box.size.width;
       print(y);
       print(x);
       print(box.size.height);
-      Overlay.of(_context)
-          ?.insert(_buildOverlay(x: x, y: y, h: height, w: width));
+      if (_overlayEntry == null) {
+        _overlayEntry = _buildOverlay();
+        Overlay.of(_context)?.insert(_overlayEntry!);
+      }
     });
   }
-}
 
-class Point extends StatelessWidget {
-  final String initial;
-  final Widget child;
-  const Point({Key? key, required this.initial, required this.child})
-      : super(key: key);
+  void removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      key: GlobalObjectKey('$initial'),
-      child: child,
-    );
+  void nextOverlay() {
+    currentIndex++;
+    removeOverlay();
+    if (currentIndex < initialList.length) show();
   }
 }

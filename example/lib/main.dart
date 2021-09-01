@@ -36,27 +36,49 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Point(
+            CoachPoint(
               initial: '1',
               child: Container(
                 color: Colors.red,
                 height: 50,
+                width: 100,
                 child: Text(
                   'You have pushed the button this many times:',
+                ),
+              ),
+            ),
+            CoachPoint(
+              initial: '2',
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  color: Colors.red,
+                  height: 50,
+                  width: 100,
+                  child: Text(
+                    'You have pushed the button this many times:',
+                  ),
                 ),
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          CoachMaker(context, initialList: ['1']).show();
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+      floatingActionButton: CoachPoint(
+        initial: '3',
+        child: FloatingActionButton(
+          onPressed: () {
+            CoachMaker(
+              context,
+              initialList: ['1', '2', '3'],
+              pointOnTap: CoachMakerControl.next,
+            ).show();
+          },
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }
