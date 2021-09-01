@@ -1,4 +1,5 @@
 import 'package:coachmaker/coachmaker.dart';
+import 'package:coachmaker/src/models/coach_model.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -80,18 +81,89 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+            SizedBox(
+              height: 400,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CoachPoint(
+                  initial: '4',
+                  child: Container(
+                    color: Colors.red,
+                    height: 50,
+                    width: 100,
+                    child: Text(
+                      'You have pushed the button this many times:',
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: CoachPoint(
         initial: '3',
         child: FloatingActionButton(
           onPressed: () {
-            CoachMaker(
-              context,
-              initialList: ['1', '2', '3'],
-              pointOnTap: CoachMakerControl.next,
-            ).show();
+            CoachMaker(context,
+                    initialList: [
+                      CoachModel(
+                          initial: '1',
+                          title: 'Ini Dia Nih',
+                          subtitle: [
+                            'Ini contoh aja',
+                            'banyak banget nih ya wkwkwkwkwkwwkwkwkwkwkwkwkwkwkwkwwkwkwkwkwkwkwkwwkwkwkwkw wkwkwkwkwkwwkwkwkwkwkwkwkwkwkwkwwkwkwkwkwkwkwkwwkwkwkwkw wkwkwkwkwkwwkwkwkwkwkwkwkwkwkwkwwkwkwkwkwkwkwkwwkwkwkwkw'
+                          ],
+                          header: Image.network(
+                            'https://miro.medium.com/max/700/1*EmDB27i0r74-ynuin1GcWA.png',
+                            height: 50,
+                            width: 50,
+                          )),
+                      CoachModel(
+                          initial: '2',
+                          title: 'Ini Dia ',
+                          subtitle: [
+                            'Nihasdfuafouaifuiaugdaiggiigispogipogipodfihpgfihigfhigfhjigfhjigfihjgfjiopgfijfiojighfjifgjigfipo'
+                          ],
+                          header: Image.network(
+                            'https://miro.medium.com/max/700/1*EmDB27i0r74-ynuin1GcWA.png',
+                            height: 50,
+                            width: 50,
+                          )),
+                      CoachModel(
+                          initial: '3',
+                          title: 'Ini Dia Nih',
+                          subtitle: [
+                            'Ini contoh aja',
+                          ],
+                          header: Image.network(
+                            'https://miro.medium.com/max/700/1*EmDB27i0r74-ynuin1GcWA.png',
+                            height: 50,
+                            width: 50,
+                          )),
+                      CoachModel(
+                          initial: '4',
+                          title: 'Ini Dia Nih',
+                          subtitle: [
+                            'Ini contoh aja',
+                          ],
+                          header: Image.network(
+                            'https://miro.medium.com/max/700/1*EmDB27i0r74-ynuin1GcWA.png',
+                            height: 50,
+                            width: 50,
+                          ))
+                    ],
+                    nextStep: CoachMakerControl.next,
+                    buttonOptions: CoachButtonOptions(
+                        buttonTitle: 'Lanjut',
+                        buttonStyle: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.green),
+                            elevation: MaterialStateProperty.all(0))))
+                .show();
           },
           tooltip: 'Increment',
           child: Icon(Icons.add),

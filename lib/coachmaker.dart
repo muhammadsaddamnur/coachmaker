@@ -1,21 +1,24 @@
 library coachmaker;
 
 export './src/widgets/widget_point.dart';
+export './src/models/coach_button_model.dart';
+import 'package:coachmaker/src/models/coach_button_model.dart';
+import 'package:coachmaker/src/models/coach_model.dart';
 import 'package:coachmaker/src/widgets/widget_main.dart';
 import 'package:flutter/material.dart';
 
 enum CoachMakerControl { none, next, close }
 
 class CoachMaker {
-  final List<String> initialList;
+  final List<CoachModel> initialList;
   final BuildContext _context;
-  final CoachMakerControl pointOnTap;
+  final CoachMakerControl nextStep;
+  final CoachButtonOptions? buttonOptions;
 
-  CoachMaker(
-    this._context, {
-    required this.initialList,
-    this.pointOnTap = CoachMakerControl.close,
-  });
+  CoachMaker(this._context,
+      {required this.initialList,
+      this.nextStep = CoachMakerControl.next,
+      this.buttonOptions});
 
   OverlayEntry? _overlayEntry;
   int currentIndex = 0;
@@ -29,8 +32,10 @@ class CoachMaker {
         h: h + 16,
         w: w + 16,
         padding: 10,
-        onTapPoint: () {
-          switch (pointOnTap) {
+        buttonOptions: buttonOptions ?? CoachButtonOptions(),
+        model: initialList[currentIndex],
+        onTapNext: () {
+          switch (nextStep) {
             case CoachMakerControl.next:
               nextOverlay();
               break;
@@ -48,7 +53,7 @@ class CoachMaker {
 
   void show() {
     Future.delayed(Duration.zero, () {
-      RenderBox box = GlobalObjectKey(initialList[currentIndex])
+      RenderBox box = GlobalObjectKey(initialList[currentIndex].initial!)
           .currentContext!
           .findRenderObject() as RenderBox;
 
@@ -57,9 +62,7 @@ class CoachMaker {
       x = position.dx;
       h = box.size.height;
       w = box.size.width;
-      print(y);
-      print(x);
-      print(box.size.height);
+
       if (_overlayEntry == null) {
         _overlayEntry = _buildOverlay();
         Overlay.of(_context)?.insert(_overlayEntry!);

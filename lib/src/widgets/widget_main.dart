@@ -1,12 +1,17 @@
 import 'dart:async';
 
+import 'package:coachmaker/coachmaker.dart';
+import 'package:coachmaker/src/models/coach_button_model.dart';
+import 'package:coachmaker/src/models/coach_model.dart';
 import 'package:coachmaker/src/widgets/widget_card.dart';
-import 'package:coachmaker/src/widgets/widget_container.dart';
 import 'package:flutter/material.dart';
 
 class WidgetMain extends StatefulWidget {
   final double x, y, h, w, padding, borderRadius;
-  final Function()? onTapPoint;
+  final CoachModel model;
+  final CoachButtonOptions? buttonOptions;
+
+  final Function()? onTapNext;
 
   const WidgetMain(
       {Key? key,
@@ -16,7 +21,9 @@ class WidgetMain extends StatefulWidget {
       required this.w,
       this.padding = 8,
       this.borderRadius = 5,
-      this.onTapPoint})
+      this.onTapNext,
+      this.buttonOptions,
+      required this.model})
       : super(key: key);
 
   @override
@@ -105,21 +112,21 @@ class _WidgetMainState extends State<WidgetMain> {
                 curve: Curves.fastOutSlowIn,
                 child: GestureDetector(
                   onTap: () async {
-                    if (enable) {
-                      setState(() {
-                        enable = false;
-                      });
-                      timer!.cancel();
-                      setState(() {
-                        h = MediaQuery.of(context).size.height;
-                        w = MediaQuery.of(context).size.width;
-                        x = 0;
-                        y = 0;
-                      });
-                      await Future.delayed(Duration(seconds: 1));
+                    // if (enable) {
+                    //   setState(() {
+                    //     enable = false;
+                    //   });
+                    //   timer!.cancel();
+                    //   setState(() {
+                    //     h = MediaQuery.of(context).size.height;
+                    //     w = MediaQuery.of(context).size.width;
+                    //     x = 0;
+                    //     y = 0;
+                    //   });
+                    //   await Future.delayed(Duration(seconds: 1));
 
-                      widget.onTapPoint!();
-                    }
+                    //   widget.onTapNext!();
+                    // }
                   },
                   child: Container(
                     height: h == 0 ? MediaQuery.of(context).size.height : h,
@@ -140,6 +147,25 @@ class _WidgetMainState extends State<WidgetMain> {
           h: h,
           w: w,
           enable: enable,
+          model: widget.model,
+          buttonOptions: widget.buttonOptions,
+          onTapNext: () async {
+            if (enable) {
+              setState(() {
+                enable = false;
+              });
+              timer!.cancel();
+              setState(() {
+                h = MediaQuery.of(context).size.height;
+                w = MediaQuery.of(context).size.width;
+                x = 0;
+                y = 0;
+              });
+              await Future.delayed(Duration(seconds: 1));
+
+              widget.onTapNext!();
+            }
+          },
         )
       ],
     );
