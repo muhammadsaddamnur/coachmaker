@@ -202,6 +202,14 @@ class _WidgetCardState extends State<WidgetCard> {
                                         if (currentPage + 1 ==
                                             widget.model.subtitle!.length) {
                                           widget.onTapNext!();
+                                          if (_pageController.hasClients) {
+                                            _pageController.animateToPage(
+                                              0,
+                                              duration: const Duration(
+                                                  milliseconds: 400),
+                                              curve: Curves.easeInOut,
+                                            );
+                                          }
                                         } else {
                                           _pageController.animateToPage(
                                             currentPage + 1,

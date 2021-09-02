@@ -54,7 +54,7 @@ class CoachMaker {
   }
 
   void show() {
-    Future.delayed(Duration.zero, () {
+    Future.delayed(Duration(milliseconds: 500), () {
       RenderBox box = GlobalObjectKey(initialList[_currentIndex].initial!)
           .currentContext!
           .findRenderObject() as RenderBox;

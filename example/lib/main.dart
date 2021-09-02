@@ -29,6 +29,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List a = [];
+  @override
+  void initState() {
+    a.addAll(['a0', 'a1']);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +82,23 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(
               height: 450,
+              width: MediaQuery.of(context).size.width,
+              child: CustomScrollView(slivers: [
+                SliverToBoxAdapter(
+                  child: ListView.builder(
+                      itemCount: 2,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return CoachPoint(
+                          initial: a[index],
+                          child: ListTile(
+                            title: Text('$index'),
+                          ),
+                        );
+                      }),
+                )
+              ]),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -105,6 +129,18 @@ class _MyHomePageState extends State<MyHomePage> {
             CoachMaker(context,
                     initialList: [
                       CoachModel(
+                          initial: 'a1',
+                          title: 'Indonesia',
+                          maxWidth: 400,
+                          subtitle: [
+                            'Banyak dah pokoknyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
+                          ],
+                          header: Image.asset(
+                            'images/logo.png',
+                            height: 50,
+                            width: 50,
+                          )),
+                      CoachModel(
                           initial: '1',
                           title: 'Indonesia',
                           maxWidth: 400,
@@ -120,45 +156,46 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 50,
                             width: 50,
                           )),
-                      CoachModel(
-                          initial: '2',
-                          title: 'Burung Bangau yang Angkuh',
-                          maxWidth: 400,
-                          alignment: Alignment.centerRight,
-                          subtitle: [
-                            'Seekor bangau berjalan dengan langkah yang anggun di sepanjang sebuah sungai kecil, matanya menatap air sungai yang jernih, leher dan paruhnya yang panjang siap untuk menangkap mangsa di air sebagai sarapan paginya. Saat itu, sungai dipenuhi dengan ikan-ikan yang berenang, tetapi sang Bangau merasa sedikit angkuh di pagi hari itu.'
-                          ],
-                          header: Image.asset(
-                            'images/logo.png',
-                            height: 50,
-                            width: 50,
-                          )),
-                      CoachModel(
-                          initial: '3',
-                          title: 'Burung perkutut, burung kuthilang',
-                          maxWidth: 400,
-                          alignment: Alignment.centerRight,
-                          subtitle: [
-                            'kamu kentut enggak bilang bilang ',
-                          ],
-                          header: Image.asset(
-                            'images/logo.png',
-                            height: 50,
-                            width: 50,
-                          )),
-                      CoachModel(
-                          initial: '4',
-                          title: 'Balonku ada lima',
-                          maxWidth: 400,
-                          alignment: Alignment.center,
-                          subtitle: [
-                            'Rupa-rupa warnanya\nHijau, kuning, kelabu\n\nMerah muda dan biru\nMeletus balon hijau DOR!',
-                          ],
-                          header: Image.asset(
-                            'images/logo.png',
-                            height: 50,
-                            width: 50,
-                          )),
+                      // CoachModel(
+                      //     initial: '2',
+                      //     title: 'Burung Bangau yang Angkuh',
+                      //     maxWidth: 400,
+                      //     alignment: Alignment.centerRight,
+                      //     subtitle: [
+                      //       'Seekor bangau berjalan dengan langkah yang anggun di sepanjang sebuah sungai kecil, matanya menatap air sungai yang jernih, leher dan paruhnya yang panjang siap untuk menangkap mangsa di air sebagai sarapan paginya. Saat itu, sungai dipenuhi dengan ikan-ikan yang berenang, tetapi sang Bangau merasa sedikit angkuh di pagi hari itu.',
+                      //       'bagian 2'
+                      //     ],
+                      //     header: Image.asset(
+                      //       'images/logo.png',
+                      //       height: 50,
+                      //       width: 50,
+                      //     )),
+                      // CoachModel(
+                      //     initial: '3',
+                      //     title: 'Burung perkutut, burung kuthilang',
+                      //     maxWidth: 400,
+                      //     alignment: Alignment.centerRight,
+                      //     subtitle: [
+                      //       'kamu kentut enggak bilang bilang ',
+                      //     ],
+                      //     header: Image.asset(
+                      //       'images/logo.png',
+                      //       height: 50,
+                      //       width: 50,
+                      //     )),
+                      // CoachModel(
+                      //     initial: '4',
+                      //     title: 'Balonku ada lima',
+                      //     maxWidth: 400,
+                      //     alignment: Alignment.center,
+                      //     subtitle: [
+                      //       'Rupa-rupa warnanya\nHijau, kuning, kelabu\n\nMerah muda dan biru\nMeletus balon hijau DOR!',
+                      //     ],
+                      //     header: Image.asset(
+                      //       'images/logo.png',
+                      //       height: 50,
+                      //       width: 50,
+                      //     )),
                     ],
                     nextStep: CoachMakerControl.next,
                     buttonOptions: CoachButtonOptions(
