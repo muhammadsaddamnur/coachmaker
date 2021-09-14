@@ -11,6 +11,7 @@ class WidgetMain extends StatefulWidget {
   final CoachModel model;
   final CoachButtonOptions? buttonOptions;
 
+  final Function()? onSkip;
   final Function()? onTapNext;
 
   const WidgetMain(
@@ -21,6 +22,7 @@ class WidgetMain extends StatefulWidget {
       required this.w,
       this.padding = 8,
       this.borderRadius = 5,
+      this.onSkip,
       this.onTapNext,
       this.buttonOptions,
       required this.model})
@@ -31,28 +33,55 @@ class WidgetMain extends StatefulWidget {
 }
 
 class _WidgetMainState extends State<WidgetMain> {
+  ///flag for show card
+  ///
   bool enable = false;
+
+  ///height
+  ///
   double h = 0;
+
+  ///width
+  ///
   double w = 0;
+
+  ///horizontal
+  ///
   double x = 0;
+
+  ///vertical
+  ///
   double y = 0;
 
+  ///timer for animation hole overlay
+  ///
   Timer? timer;
 
-  @override
-  void dispose() {
-    timer!.cancel();
-    super.dispose();
-  }
-
+  ///init state
+  ///
   @override
   void initState() {
     super.initState();
     start();
   }
 
+  ///dispose
+  ///
+  @override
+  void dispose() {
+    timer!.cancel();
+    super.dispose();
+  }
+
+  ///start method (animation, show, etc)
+  ///
   void start() async {
+    ///await 1 miliseconds
+    ///
     await Future.delayed(Duration(milliseconds: 1));
+
+    ///set default value
+    ///
     setState(() {
       h = widget.h + (widget.padding * 2);
       w = widget.w + (widget.padding * 2);
@@ -60,6 +89,8 @@ class _WidgetMainState extends State<WidgetMain> {
       y = widget.y - widget.padding;
     });
 
+    ///set varibles with timer
+    ///
     timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
       setState(() {
         h = (h == widget.h + (widget.padding * 2))
@@ -76,7 +107,13 @@ class _WidgetMainState extends State<WidgetMain> {
             : widget.y - widget.padding;
       });
     });
+
+    ///await 1 miliseconds
+    ///
     await Future.delayed(Duration(seconds: 1));
+
+    ///show card
+    ///
     setState(() {
       enable = true;
     });
@@ -149,6 +186,7 @@ class _WidgetMainState extends State<WidgetMain> {
           enable: enable,
           model: widget.model,
           buttonOptions: widget.buttonOptions,
+          onSkip: widget.onSkip,
           onTapNext: () async {
             if (enable) {
               setState(() {

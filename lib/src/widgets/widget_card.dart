@@ -8,6 +8,7 @@ class WidgetCard extends StatefulWidget {
   final Widget? child;
   final CoachModel model;
   final CoachButtonOptions? buttonOptions;
+  final Function()? onSkip;
   final Function()? onTapNext;
 
   const WidgetCard(
@@ -20,6 +21,7 @@ class WidgetCard extends StatefulWidget {
       required this.model,
       this.buttonOptions,
       this.child,
+      this.onSkip,
       this.onTapNext})
       : super(key: key);
 
@@ -28,41 +30,82 @@ class WidgetCard extends StatefulWidget {
 }
 
 class _WidgetCardState extends State<WidgetCard> {
-  double left = 0;
+  ///top position
+  ///
   double top = 0;
-  double h = 0;
-  double w = 0;
-  double x = 0;
-  double y = 0;
-  double hCard = 0;
-  double wCard = 0;
-  int currentPage = 0;
-  PageController _pageController = PageController();
 
+  ///height
+  ///
+  double h = 0;
+
+  ///width
+  ///
+  double w = 0;
+
+  ///horizontal
+  ///
+  double x = 0;
+
+  ///vertical
+  ///
+  double y = 0;
+
+  ///height card
+  ///
+  double hCard = 0;
+
+  ///width card
+  ///
+  double wCard = 0;
+
+  ///current page card
+  ///
+  int currentPage = 0;
+
+  ///constroller page card
+  ///
+  PageController pageController = PageController();
+
+  ///init state
+  ///
   @override
   void initState() {
     super.initState();
     start();
   }
 
+  ///dispose
+  ///
   @override
   void dispose() {
-    _pageController.dispose();
+    pageController.dispose();
     super.dispose();
   }
 
+  ///start method (animation, show, etc)
+  ///
   void start() async {
     Future.delayed(Duration.zero, () {
+      ///card global key attribute
+      ///
       RenderBox box = GlobalObjectKey('pointWidget1234567890')
           .currentContext!
           .findRenderObject() as RenderBox;
+
+      ///set attribute to variables
+      ///
       setState(() {
         hCard = box.size.height;
         wCard = box.size.width;
       });
     });
 
+    ///delay 1.5 seconds
+    ///
     await Future.delayed(Duration(milliseconds: 1005));
+
+    ///set position
+    ///
     setState(() {
       x = widget.x;
       y = widget.y;
@@ -73,16 +116,47 @@ class _WidgetCardState extends State<WidgetCard> {
     });
   }
 
+  ///scroll listview method
+  ///
+  void scrollToIndex({required int index}) {
+    /// if index == 0 scroll to top
+    ///
+    if (index == 0) {
+      widget.model.scrollOptions!.scrollController!.animateTo(0,
+          duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    } else {
+      ///get first widget attribute of list
+      ///
+      RenderBox box = GlobalObjectKey(widget.model.initial!)
+          .currentContext!
+          .findRenderObject() as RenderBox;
+
+      ///scroll to index (height of widget * index)
+      ///if your widget of listview cannot same height, please set extraheight
+      ///
+      widget.model.scrollOptions!.scrollController!.animateTo(
+          (box.size.height + widget.model.scrollOptions!.extraHeight) * index,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.ease);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      ///only center
-      // left: ((MediaQuery.of(context).size.width / 2) - (wCard / 2)),
-      left: 0,
-      top: y + h + hCard + (widget.model.subtitle!.length == 1 ? 0 : 50) >
-              MediaQuery.of(context).size.height
-          ? y - hCard - (widget.model.subtitle!.length == 1 ? 24 : 16)
-          : y + h + 8,
+      left:
+          MediaQuery.of(context).size.height > MediaQuery.of(context).size.width
+              ? 0
+              : x + w < (MediaQuery.of(context).size.width / 2)
+                  ? x - (w / 2) + 8
+                  : x - w - (w / 2) - wCard - 8,
+      top:
+          MediaQuery.of(context).size.height > MediaQuery.of(context).size.width
+              ? y + h + hCard + (widget.model.subtitle!.length == 1 ? 0 : 50) >
+                      MediaQuery.of(context).size.height
+                  ? y - hCard - (widget.model.subtitle!.length == 1 ? 24 : 16)
+                  : y + h + 8
+              : y,
       child: Material(
         color: Colors.transparent,
         child: AnimatedOpacity(
@@ -92,9 +166,6 @@ class _WidgetCardState extends State<WidgetCard> {
               : widget.enable
                   ? 1
                   : 0,
-
-          ///remove sizebox for only center
-          ///
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Align(
@@ -152,7 +223,7 @@ class _WidgetCardState extends State<WidgetCard> {
                                                 currentPage = x;
                                               });
                                             },
-                                            controller: _pageController,
+                                            controller: pageController,
                                             itemCount:
                                                 widget.model.subtitle!.length,
                                             itemBuilder: (context, index) {
@@ -195,34 +266,131 @@ class _WidgetCardState extends State<WidgetCard> {
                                                     ),
                                                   )),
                                         ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      if (widget.model.subtitle!.length == 1 ||
-                                          _pageController.hasClients) {
-                                        if (currentPage + 1 ==
-                                            widget.model.subtitle!.length) {
-                                          widget.onTapNext!();
-                                          if (_pageController.hasClients) {
-                                            _pageController.animateToPage(
-                                              0,
-                                              duration: const Duration(
-                                                  milliseconds: 400),
-                                              curve: Curves.easeInOut,
-                                            );
+                                  Row(
+                                    children: [
+                                      widget.onSkip == null
+                                          ? SizedBox()
+                                          : MaterialButton(
+                                              onPressed: widget.onSkip,
+                                              child: Text(
+                                                '${widget.buttonOptions!.skipTitle}',
+                                                style: TextStyle(
+                                                    color: Colors.grey),
+                                              )),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          ///if subtitle length = 1 or pageController has client
+                                          ///
+                                          if (widget.model.subtitle!.length ==
+                                                  1 ||
+                                              pageController.hasClients) {
+                                            ///if current page + 1 == total subtitle length
+                                            ///
+                                            if (currentPage + 1 ==
+                                                widget.model.subtitle!.length) {
+                                              ///if callback not null
+                                              ///
+                                              if (widget.model.callBack !=
+                                                  null) {
+                                                ///using if you want to run method before next step
+                                                ///return boolean
+                                                ///
+                                                bool result = await widget
+                                                    .model.callBack!
+                                                    .call();
+
+                                                ///if callback return true
+                                                ///
+                                                if (result) {
+                                                  ///next step
+                                                  ///
+                                                  widget.onTapNext!();
+
+                                                  ///if page controller has client
+                                                  ///slide to 0
+                                                  ///
+                                                  if (pageController
+                                                      .hasClients) {
+                                                    pageController
+                                                        .animateToPage(
+                                                      0,
+                                                      duration: const Duration(
+                                                          milliseconds: 400),
+                                                      curve: Curves.easeInOut,
+                                                    );
+                                                  }
+                                                }
+                                              } else {
+                                                ///next step
+                                                ///
+                                                widget.onTapNext!();
+
+                                                ///if page controller has client
+                                                ///slide to 0
+                                                ///
+                                                if (pageController.hasClients) {
+                                                  pageController.animateToPage(
+                                                    0,
+                                                    duration: const Duration(
+                                                        milliseconds: 400),
+                                                    curve: Curves.easeInOut,
+                                                  );
+                                                }
+                                              }
+
+                                              ///check if scroll options not null
+                                              ///
+                                              if (widget.model.scrollOptions !=
+                                                  null) {
+                                                ///check if scroll options widget is last
+                                                ///
+                                                if (widget.model.scrollOptions!
+                                                        .isLast ==
+                                                    true) {
+                                                  ///if last scroll to top
+                                                  ///
+                                                  scrollToIndex(index: 0);
+
+                                                  ///delay 1 seconds
+                                                  ///
+                                                  await Future.delayed(
+                                                      Duration(seconds: 1));
+                                                } else {
+                                                  ///if not last, scroll to index
+                                                  ///
+                                                  scrollToIndex(
+                                                      index: widget
+                                                          .model
+                                                          .scrollOptions!
+                                                          .scrollToIndex!);
+
+                                                  ///delay 1 seconds
+                                                  ///
+                                                  await Future.delayed(
+                                                      Duration(seconds: 1));
+                                                }
+                                              }
+                                            } else {
+                                              ///next page (card)
+                                              ///
+                                              pageController.animateToPage(
+                                                currentPage + 1,
+                                                duration: const Duration(
+                                                    milliseconds: 400),
+                                                curve: Curves.easeInOut,
+                                              );
+                                            }
                                           }
-                                        } else {
-                                          _pageController.animateToPage(
-                                            currentPage + 1,
-                                            duration: const Duration(
-                                                milliseconds: 400),
-                                            curve: Curves.easeInOut,
-                                          );
-                                        }
-                                      }
-                                    },
-                                    child: Text(
-                                        '${widget.buttonOptions!.buttonTitle}'),
-                                    style: widget.buttonOptions!.buttonStyle,
+                                        },
+                                        child: Text(
+                                            '${widget.buttonOptions!.buttonTitle}'),
+                                        style:
+                                            widget.buttonOptions!.buttonStyle,
+                                      ),
+                                    ],
                                   ),
                                 ],
                               )

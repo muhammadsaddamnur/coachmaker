@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+///coach point widget
+///
 class CoachPoint extends StatelessWidget {
   final String initial;
   final Widget child;
