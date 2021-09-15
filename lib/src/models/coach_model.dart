@@ -8,7 +8,7 @@ class CoachModel {
       this.header,
       this.maxWidth,
       this.alignment = Alignment.center,
-      this.callBack,
+      this.nextOnTapCallBack,
       this.scrollOptions});
 
   String? initial;
@@ -17,18 +17,18 @@ class CoachModel {
   Widget? header;
   double? maxWidth;
   AlignmentGeometry? alignment;
-  Future<bool> Function()? callBack;
+  Future<bool> Function()? nextOnTapCallBack;
   ScrollOptions? scrollOptions;
 }
 
 class ScrollOptions {
   ScrollOptions(
       {this.scrollController,
-      this.extraHeight = 0,
+      this.manualHeight,
       this.scrollToIndex,
       this.isLast = false});
 
-  double extraHeight;
+  double? manualHeight;
   ScrollController? scrollController;
   int? scrollToIndex;
   bool isLast;

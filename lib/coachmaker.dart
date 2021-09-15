@@ -93,6 +93,8 @@ class CoachMaker {
             ? null
             : () {
                 removeOverlay();
+                overlayBlock?.remove();
+                overlayBlock = null;
                 skip!();
               },
         onTapNext: () {

@@ -118,26 +118,32 @@ class _WidgetCardState extends State<WidgetCard> {
 
   ///scroll listview method
   ///
-  void scrollToIndex({required int index}) {
-    /// if index == 0 scroll to top
-    ///
-    if (index == 0) {
-      widget.model.scrollOptions!.scrollController!.animateTo(0,
+  void scrollToIndex({int index = 0, double? manualHeight}) {
+    if (manualHeight != null) {
+      widget.model.scrollOptions!.scrollController!.animateTo(manualHeight,
           duration: const Duration(milliseconds: 500), curve: Curves.ease);
     } else {
-      ///get first widget attribute of list
+      /// if index == 0 scroll to top
       ///
-      RenderBox box = GlobalObjectKey(widget.model.initial!)
-          .currentContext!
-          .findRenderObject() as RenderBox;
+      if (index == 0) {
+        widget.model.scrollOptions!.scrollController!.animateTo(0,
+            duration: const Duration(milliseconds: 500), curve: Curves.ease);
+      } else {
+        ///get first widget attribute of list
+        ///
+        RenderBox box = GlobalObjectKey(widget.model.initial!)
+            .currentContext!
+            .findRenderObject() as RenderBox;
 
-      ///scroll to index (height of widget * index)
-      ///if your widget of listview cannot same height, please set extraheight
-      ///
-      widget.model.scrollOptions!.scrollController!.animateTo(
-          (box.size.height + widget.model.scrollOptions!.extraHeight) * index,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.ease);
+        ///scroll to index (height of widget * index)
+        ///if your widget of listview cannot same height, please set extraheight
+        ///
+
+        widget.model.scrollOptions!.scrollController!.animateTo(
+            box.size.height * index,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.ease);
+      }
     }
   }
 
@@ -146,17 +152,49 @@ class _WidgetCardState extends State<WidgetCard> {
     return Positioned(
       left:
           MediaQuery.of(context).size.height > MediaQuery.of(context).size.width
-              ? 0
-              : x + w < (MediaQuery.of(context).size.width / 2)
-                  ? x - (w / 2) + 8
-                  : x - w - (w / 2) - wCard - 8,
+              ?
+
+              ///potrait
+              ///
+              0
+              :
+
+              ///lanscape
+              ///
+              x + w < (MediaQuery.of(context).size.width / 2)
+                  ? h > hCard
+                      ? x - (w / 2) + 8
+                      : (x + w * -1) - 8
+                  : (x < (MediaQuery.of(context).size.width / 2)
+                      ? h > hCard
+                          ? x + w + wCard > MediaQuery.of(context).size.width
+                              ? x - wCard
+                              : x - (w / 2) + 8
+                          : 0
+                      : x - w - (w / 2) - wCard - 16),
       top:
           MediaQuery.of(context).size.height > MediaQuery.of(context).size.width
-              ? y + h + hCard + (widget.model.subtitle!.length == 1 ? 0 : 50) >
+              ?
+
+              ///potrait
+              ///
+              y + h + hCard + (widget.model.subtitle!.length == 1 ? 0 : 50) >
                       MediaQuery.of(context).size.height
                   ? y - hCard - (widget.model.subtitle!.length == 1 ? 24 : 16)
                   : y + h + 8
-              : y,
+              :
+
+              ///lanscape
+              ///
+              y > MediaQuery.of(context).size.height / 2
+                  ? y - hCard - (widget.model.subtitle!.length == 1 ? 24 : 16)
+                  : y < (MediaQuery.of(context).size.height / 2)
+                      ? y + h > hCard
+                          ? y
+                          : y + h + 8
+                      : x < (MediaQuery.of(context).size.width / 2)
+                          ? y
+                          : y + h + 8,
       child: Material(
         color: Colors.transparent,
         child: AnimatedOpacity(
@@ -293,13 +331,14 @@ class _WidgetCardState extends State<WidgetCard> {
                                                 widget.model.subtitle!.length) {
                                               ///if callback not null
                                               ///
-                                              if (widget.model.callBack !=
+                                              if (widget.model
+                                                      .nextOnTapCallBack !=
                                                   null) {
                                                 ///using if you want to run method before next step
                                                 ///return boolean
                                                 ///
                                                 bool result = await widget
-                                                    .model.callBack!
+                                                    .model.nextOnTapCallBack!
                                                     .call();
 
                                                 ///if callback return true
@@ -352,20 +391,38 @@ class _WidgetCardState extends State<WidgetCard> {
                                                     true) {
                                                   ///if last scroll to top
                                                   ///
-                                                  scrollToIndex(index: 0);
+                                                  scrollToIndex(
+                                                    index: 0,
+                                                  );
 
                                                   ///delay 1 seconds
                                                   ///
                                                   await Future.delayed(
                                                       Duration(seconds: 1));
                                                 } else {
-                                                  ///if not last, scroll to index
+                                                  ///use manual height
                                                   ///
-                                                  scrollToIndex(
-                                                      index: widget
+                                                  if (widget
                                                           .model
                                                           .scrollOptions!
-                                                          .scrollToIndex!);
+                                                          .manualHeight !=
+                                                      null) {
+                                                    ///if not last, scroll to manual height
+                                                    ///
+                                                    scrollToIndex(
+                                                        manualHeight: widget
+                                                            .model
+                                                            .scrollOptions!
+                                                            .manualHeight);
+                                                  } else {
+                                                    ///if not last, scroll to index
+                                                    ///
+                                                    scrollToIndex(
+                                                        index: widget
+                                                            .model
+                                                            .scrollOptions!
+                                                            .scrollToIndex!);
+                                                  }
 
                                                   ///delay 1 seconds
                                                   ///
