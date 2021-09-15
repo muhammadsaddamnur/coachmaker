@@ -1,4 +1,7 @@
 import 'package:coachmaker/coachmaker.dart';
+import 'package:example/horizontalExample.dart';
+import 'package:example/scrollExample.dart';
+import 'package:example/scrollManualHeightExample.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,21 +16,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: HorizontalExample(
+        title: '',
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+class Simple extends StatefulWidget {
+  Simple({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SimpleState createState() => _SimpleState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SimpleState extends State<Simple> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 100),
@@ -45,12 +50,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 initial: '1',
                 child: Container(
                   color: Colors.red,
-                  height: 500,
+                  height: 100,
                   width: 100,
-                  child: Text(
-                    'Sorot aku kakak',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
+                  child: Center(
+                    child: Text(
+                      'Sorot aku kakak',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
@@ -67,28 +74,35 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.red,
                     height: 50,
                     width: 100,
-                    child: Text(
-                      'Sorot aku kakak',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                    child: Center(
+                      child: Text(
+                        'Sorot aku kakak',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                CoachPoint(
-                  initial: '3',
-                  child: Container(
-                    color: Colors.red,
-                    height: 50,
-                    width: 100,
-                    child: Text(
-                      'Sorot aku kakak',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CoachPoint(
+                    initial: '3',
+                    child: Container(
+                      color: Colors.red,
+                      height: 50,
+                      width: 100,
+                      child: Center(
+                        child: Text(
+                          'Sorot aku kakak',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -106,13 +120,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     initialList: [
                       CoachModel(
                         initial: '1',
-                        title: 'Indonesia',
+                        title: 'Keong Racun',
                         maxWidth: 400,
                         subtitle: [
-                          'Banyak dah pokoknyaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
+                          'Dasar kau keong racun\nBaru kenal eh ngajak tidur\nNgomong nggak sopan santun\nKau anggap aku ayam kampung',
                         ],
-                        header: Image.asset(
-                          'images/logo.png',
+                        header: Image.network(
+                          'https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512',
                           height: 50,
                           width: 50,
                         ),
@@ -126,8 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             'Seekor bangau berjalan dengan langkah yang anggun di sepanjang sebuah sungai kecil, matanya menatap air sungai yang jernih, leher dan paruhnya yang panjang siap untuk menangkap mangsa di air sebagai sarapan paginya. Saat itu, sungai dipenuhi dengan ikan-ikan yang berenang, tetapi sang Bangau merasa sedikit angkuh di pagi hari itu.',
                             'bagian 2'
                           ],
-                          header: Image.asset(
-                            'images/logo.png',
+                          header: Image.network(
+                            'https://lh3.googleusercontent.com/3_OFn2skqHXk-UQ-9RUdNrDl_HQJrMCxks5teQcUrF_bOSeDG1hD8j83FeD31W8hASZCvubzsGfumuJq8kvvSAq03wY87RZ7Otx_DF4',
                             height: 50,
                             width: 50,
                           )),
@@ -139,8 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           subtitle: [
                             'kamu kentut enggak bilang bilang ',
                           ],
-                          header: Image.asset(
-                            'images/logo.png',
+                          header: Image.network(
+                            'https://lh3.googleusercontent.com/COxitqgJr1sJnIDe8-jiKhxDx1FrYbtRHKJ9z_hELisAlapwE9LUPh6fcXIfb5vwpbMl4xl9H9TRFPc5NOO8Sb3VSgIBrfRYvW6cUA',
                             height: 50,
                             width: 50,
                           )),
@@ -159,6 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           )),
                     ],
                     nextStep: CoachMakerControl.next,
+                    skip: () {},
                     buttonOptions: CoachButtonOptions(
                         skipTitle: 'Lewati',
                         buttonTitle: 'Lanjut',

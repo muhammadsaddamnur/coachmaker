@@ -1,16 +1,17 @@
 import 'package:coachmaker/coachmaker.dart';
 import 'package:flutter/material.dart';
 
-class ScrollExample extends StatefulWidget {
-  ScrollExample({Key? key, required this.title}) : super(key: key);
+class ScrollManualHeightExample extends StatefulWidget {
+  ScrollManualHeightExample({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _ScrollExampleState createState() => _ScrollExampleState();
+  _ScrollManualHeightExampleState createState() =>
+      _ScrollManualHeightExampleState();
 }
 
-class _ScrollExampleState extends State<ScrollExample> {
+class _ScrollManualHeightExampleState extends State<ScrollManualHeightExample> {
   final ScrollController _scrollController = ScrollController();
 
   List listku = [];
@@ -32,19 +33,65 @@ class _ScrollExampleState extends State<ScrollExample> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView.builder(
-          itemCount: 100,
-          controller: _scrollController,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return CoachPoint(
-              initial: listku[index],
-              child: ListTile(
-                title: Text('$index'),
+      body: ListView(
+        controller: _scrollController,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CoachPoint(
+              initial: '1',
+              child: Container(
+                height: 100,
+                color: Colors.red,
               ),
-            );
-          }),
+            ),
+          ),
+          SizedBox(
+            height: 500,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CoachPoint(
+              initial: '2',
+              child: Container(
+                height: 300,
+                color: Colors.green,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CoachPoint(
+              initial: '3',
+              child: Container(
+                height: 500,
+                color: Colors.blue,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 500,
+          ),
+          SizedBox(
+            height: 500,
+          ),
+          SizedBox(
+            height: 500,
+          ),
+          SizedBox(
+            height: 500,
+          ),
+          SizedBox(
+            height: 500,
+          ),
+          SizedBox(
+            height: 500,
+          ),
+          SizedBox(
+            height: 500,
+          ),
+        ],
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: CoachPoint(
         initial: 'floatBtn',
@@ -66,10 +113,10 @@ class _ScrollExampleState extends State<ScrollExample> {
                         ),
                         scrollOptions: ScrollOptions(
                             scrollController: _scrollController,
-                            scrollToIndex: 50),
+                            manualHeight: 600),
                       ),
                       CoachModel(
-                          initial: '50',
+                          initial: '2',
                           title: 'Belajar Berhitung',
                           maxWidth: 400,
                           subtitle: [
@@ -80,16 +127,16 @@ class _ScrollExampleState extends State<ScrollExample> {
                             '5',
                           ],
                           scrollOptions: ScrollOptions(
-                            scrollController: _scrollController,
-                            scrollToIndex: 60,
-                          ),
+                              scrollController: _scrollController,
+                              scrollToIndex: 60,
+                              manualHeight: 900),
                           header: Image.asset(
                             'images/logo.png',
                             height: 50,
                             width: 50,
                           )),
                       CoachModel(
-                          initial: '60',
+                          initial: '3',
                           title: 'Nomer 60',
                           maxWidth: 400,
                           subtitle: [
