@@ -98,61 +98,19 @@ Time to fight🥊 :
   
 
 ```dart
-
-  
-
-CoachPoint(
-
-  
-
-initial: '1',
-
-  
-
-child: Container(
-
-  
-
-color: Colors.red,
-
-  
-
-height: 50,
-
-  
-
-width: 100,
-
-  
-
-child: Text(
-
-  
-
-'Sorot aku kakak',
-
-  
-
-textAlign: TextAlign.center,
-
-  
-
-style: TextStyle(color: Colors.white),
-
-  
-
+  CoachPoint(
+	initial: '1',
+	child: Container(
+	          color: Colors.red,
+              height: 50,
+              width: 100,
+              child: Text(
+                  'Sorot aku kakak',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+           ),
+   ),
 ),
-
-  
-
-),
-
-  
-
-),
-
-  
-
 ```
 
   
@@ -178,219 +136,59 @@ style: TextStyle(color: Colors.white),
   
 
 ```dart
-
-  
-
 FloatingActionButton(
-
-  
-
-onPressed: () {
-
-  
-
-CoachMaker(context,
-
-///coachmaker will show from index 0 to n of initialList
-
-  
-
-///
-
-  
-
-initialList: [
-
-  
-
-///initial name of CoachPoint from previous example ☝️ (inital: '1')
-
-  
-
-///
-
-  
-
-CoachModel(
-
-  
-
-initial: '1',
-
-  
-
-title: 'Indonesia',
-
-  
-
-maxWidth: 400,
-
-  
-
-///if subtitle length > 1 will show pageview slider
-
-  
-
-///
-
-  
-
-subtitle: [
-
-  
-
-'1. Aceh',
-
-  
-
-'2. Jakarta',
-
-  
-
-'3. Bali',
-
-  
-
-'4. Papua',
-
-  
-
-],
-
-  
-
-header: Image.asset(
-
-  
-
-'images/logo.png',
-
-  
-
-height: 50,
-
-  
-
-width: 50,
-
-  
-
-)),
-
-  
-
-///other initials name available
-
-  
-
-///
-
-  
-
-CoachModel(
-
-  
-
-initial: '2',
-
-  
-
-title: 'Burung perkutut, burung kuthilang',
-
-  
-
-maxWidth: 400,
-
-  
-
-alignment: Alignment.centerRight,
-
-  
-
-subtitle: [
-
-  
-
-'kamu kentut enggak bilang bilang ',
-
-  
-
-],
-
-  
-
-header: Image.asset(
-
-  
-
-'images/logo.png',
-
-  
-
-height: 50,
-
-  
-
-width: 50,
-
-  
-
-)),
-
-  
-
-],
-
-  
-
-nextStep: CoachMakerControl.next,
-
-  
-
-buttonOptions: CoachButtonOptions(
-
-  
-
-buttonTitle: 'Lanjut',
-
-  
-
-buttonStyle: ButtonStyle(
-
-  
-
-backgroundColor:
-
-  
-
-MaterialStateProperty.all(Colors.green),
-
-  
-
-elevation: MaterialStateProperty.all(0))))
-
-  
-
-.show();
-
-  
-
-},
-
-  
-
-tooltip: 'Increment',
-
-  
-
-child: Icon(Icons.add),
-
-  
-
+          onPressed: () {
+            CoachMaker(context,
+                    ///coachmaker will show from index 0 to n of initialList
+                    ///
+                    initialList: [
+                      ///initial name of CoachPoint from previous example ☝️ (inital: '1') 
+                      ///
+                      CoachModel(
+                          initial: '1',
+                          title: 'Indonesia',
+                          maxWidth: 400,
+                          ///if subtitle length > 1 will show pageview slider
+                          ///
+                          subtitle: [
+                            '1. Aceh',
+                            '2. Jakarta',
+                            '3. Bali',
+                            '4. Papua',
+                          ],
+                          header: Image.asset(
+                            'images/logo.png',
+                            height: 50,
+                            width: 50,
+                          )),
+                      ///other initials name available
+                      ///
+                      CoachModel(
+                          initial: '2',
+                          title: 'Burung perkutut, burung kuthilang',
+                          maxWidth: 400,
+                          alignment: Alignment.centerRight,
+                          subtitle: [
+                            'kamu kentut enggak bilang bilang ',
+                          ],
+                          header: Image.asset(
+                            'images/logo.png',
+                            height: 50,
+                            width: 50,
+                          )),
+                    ],
+                    nextStep: CoachMakerControl.next,
+                    buttonOptions: CoachButtonOptions(
+                        buttonTitle: 'Lanjut',
+                        buttonStyle: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.green),
+                            elevation: MaterialStateProperty.all(0))))
+                .show();
+          },
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
 ),
-
-  
-
 ```
 
   
@@ -429,65 +227,23 @@ used when all list items are the ***same height size*** .
   
 
 ```dart
-
 CoachModel(
-
-  
-
-initial: '60',
-
-  
-
-title: 'Nomer 60',
-
-  
-
-maxWidth: 400,
-
-  
-
-subtitle: [
-
-  
-
-'Tuh kan loncat',
-
-  
-
-],
-
-  
-
-scrollOptions: ScrollOptions(
-
-  
-
-scrollController: _scrollController,
-
-  
-
-isLast: true),
-
-  
-
-header: Image.asset(
-
-  
-
-'images/logo.png',
-
-  
-
-height: 50,
-
-  
-
-width: 50,
-
-  
-
-)),
-
+  initial: '60',
+  title: 'Nomer 60',
+  maxWidth: 400,
+  subtitle: [
+    'Tuh kan loncat',
+  ],
+  scrollOptions: ScrollOptions(
+    scrollController: _scrollController,
+    isLast: true
+  ),
+  header: Image.asset(
+    'images/logo.png',
+    height: 50,
+    width: 50,
+  )
+),
 ```
 
 confused? you can check this [Example Here](https://github.com/muhammadsaddamnur/coachmaker/blob/main/example/lib/scrollExample.dart)
@@ -503,69 +259,22 @@ confused? you can check this [Example Here](https://github.com/muhammadsaddamnur
 Sometimes, maybe your list item haven't same height, you can using **manualHeight** for sliding to item
 
 ```dart
-
 CoachModel(
-
-  
-
-initial: '1',
-
-  
-
-title: 'Burung kakak tua',
-
-  
-
-maxWidth: 400,
-
-  
-
-subtitle: [
-
-  
-
-'Burung kakak tua\nHinggap di jendela\nNenek sudah tua\nGiginya tinggal dua',
-
-  
-
-],
-
-  
-
-header: Image.asset(
-
-  
-
-'images/logo.png',
-
-  
-
-height: 50,
-
-  
-
-width: 50,
-
-  
-
+  initial: '1',
+  title: 'Burung kakak tua',
+  maxWidth: 400,
+  subtitle: [
+    'Burung kakak tua\nHinggap di jendela\nNenek sudah tua\nGiginya tinggal dua',
+  ],
+  header: Image.asset('images/logo.png',
+    height: 50,
+    width: 50,
+  ),
+  scrollOptions: ScrollOptions(
+    scrollController: _scrollController,
+    manualHeight: 600
+  ),
 ),
-
-  
-
-scrollOptions: ScrollOptions(
-
-  
-
-scrollController: _scrollController,
-
-  
-
-manualHeight: 600),
-
-  
-
-),
-
 ```
 
 confused? you can check this [Example Here](https://github.com/muhammadsaddamnur/coachmaker/blob/main/example/lib/scrollManualHeightExample.dart)
