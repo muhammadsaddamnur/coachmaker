@@ -128,7 +128,6 @@ class _ScrollManualHeightExampleState extends State<ScrollManualHeightExample> {
                           ],
                           scrollOptions: ScrollOptions(
                               scrollController: _scrollController,
-                              scrollToIndex: 60,
                               manualHeight: 900),
                           header: Image.asset(
                             'images/logo.png',
