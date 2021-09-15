@@ -98,7 +98,7 @@ Time to fight🥊 :
   
 
 ```dart
-  CoachPoint(
+CoachPoint(
 	initial: '1',
 	child: Container(
 	          color: Colors.red,
@@ -217,8 +217,6 @@ Now you can auto scroll of list and coach the item
   
 
 ![same height of list](https://media.giphy.com/media/RhYMtF5qCB56ip3KnX/giphy.gif)
-
-*(Item list same height)*
 
   
 
