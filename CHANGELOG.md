@@ -1,4 +1,4 @@
-# 0.1.🐞
+# 0.1.1🐞
 * custom duration & first delay ⏱️
 
 # 0.1.0🐞
