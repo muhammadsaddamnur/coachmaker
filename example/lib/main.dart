@@ -114,6 +114,7 @@ class _SimpleState extends State<Simple> {
         child: FloatingActionButton(
           onPressed: () {
             CoachMaker(context,
+                    // firstDelay: Duration(seconds: 10),
                     // duration: Duration(milliseconds: 600),
                     initialList: [
                       CoachModel(
