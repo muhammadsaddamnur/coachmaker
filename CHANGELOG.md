@@ -1,3 +1,6 @@
+# 0.1.🐞
+* custom duration & first delay ⏱️
+
 # 0.1.0🐞
 * dynamic position potrait 📱 / landscape 🔄
 * scroll to index / height on list controller, got it !!!🔫

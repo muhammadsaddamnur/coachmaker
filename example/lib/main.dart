@@ -1,7 +1,4 @@
 import 'package:coachmaker/coachmaker.dart';
-import 'package:example/horizontalExample.dart';
-import 'package:example/scrollExample.dart';
-import 'package:example/scrollManualHeightExample.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HorizontalExample(
+      home: Simple(
         title: '',
       ),
     );
@@ -117,6 +114,7 @@ class _SimpleState extends State<Simple> {
         child: FloatingActionButton(
           onPressed: () {
             CoachMaker(context,
+                    // duration: Duration(milliseconds: 600),
                     initialList: [
                       CoachModel(
                         initial: '1',

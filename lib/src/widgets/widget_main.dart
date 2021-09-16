@@ -10,6 +10,7 @@ class WidgetMain extends StatefulWidget {
   final double x, y, h, w, padding, borderRadius;
   final CoachModel model;
   final CoachButtonOptions? buttonOptions;
+  final Duration duration;
 
   final Function()? onSkip;
   final Function()? onTapNext;
@@ -22,6 +23,7 @@ class WidgetMain extends StatefulWidget {
       required this.w,
       this.padding = 8,
       this.borderRadius = 5,
+      required this.duration,
       this.onSkip,
       this.onTapNext,
       this.buttonOptions,
@@ -78,7 +80,7 @@ class _WidgetMainState extends State<WidgetMain> {
   void start() async {
     ///await 1 miliseconds
     ///
-    await Future.delayed(Duration(milliseconds: 1));
+    await Future.delayed(Duration(milliseconds: 100));
 
     ///set default value
     ///
@@ -91,7 +93,7 @@ class _WidgetMainState extends State<WidgetMain> {
 
     ///set varibles with timer
     ///
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    timer = Timer.periodic(widget.duration, (Timer t) {
       setState(() {
         h = (h == widget.h + (widget.padding * 2))
             ? widget.h - (widget.padding)
@@ -110,7 +112,7 @@ class _WidgetMainState extends State<WidgetMain> {
 
     ///await 1 miliseconds
     ///
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(widget.duration);
 
     ///show card
     ///
@@ -145,7 +147,7 @@ class _WidgetMainState extends State<WidgetMain> {
                 top: y,
                 height: h == 0 ? MediaQuery.of(context).size.height : h,
                 width: w == 0 ? MediaQuery.of(context).size.width : w,
-                duration: Duration(seconds: 1),
+                duration: widget.duration,
                 curve: Curves.fastOutSlowIn,
                 child: GestureDetector(
                   onTap: () async {
@@ -179,6 +181,7 @@ class _WidgetMainState extends State<WidgetMain> {
           ),
         ),
         WidgetCard(
+          duration: widget.duration,
           x: x,
           y: y,
           h: h,
@@ -199,7 +202,7 @@ class _WidgetMainState extends State<WidgetMain> {
                 x = 0;
                 y = 0;
               });
-              await Future.delayed(Duration(seconds: 1));
+              await Future.delayed(widget.duration);
 
               widget.onTapNext!();
             }

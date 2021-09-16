@@ -10,6 +10,7 @@ class WidgetCard extends StatefulWidget {
   final CoachButtonOptions? buttonOptions;
   final Function()? onSkip;
   final Function()? onTapNext;
+  final Duration duration;
 
   const WidgetCard(
       {Key? key,
@@ -19,6 +20,7 @@ class WidgetCard extends StatefulWidget {
       required this.h,
       required this.w,
       required this.model,
+      required this.duration,
       this.buttonOptions,
       this.child,
       this.onSkip,
@@ -102,7 +104,8 @@ class _WidgetCardState extends State<WidgetCard> {
 
     ///delay 1.5 seconds
     ///
-    await Future.delayed(Duration(milliseconds: 1005));
+    // await Future.delayed(Duration(milliseconds: 1005));
+    await Future.delayed(widget.duration);
 
     ///set position
     ///
@@ -121,13 +124,13 @@ class _WidgetCardState extends State<WidgetCard> {
   void scrollToIndex({int index = 0, double? manualHeight}) {
     if (manualHeight != null) {
       widget.model.scrollOptions!.scrollController!.animateTo(manualHeight,
-          duration: const Duration(milliseconds: 500), curve: Curves.ease);
+          duration: widget.duration, curve: Curves.ease);
     } else {
       /// if index == 0 scroll to top
       ///
       if (index == 0) {
-        widget.model.scrollOptions!.scrollController!.animateTo(0,
-            duration: const Duration(milliseconds: 500), curve: Curves.ease);
+        widget.model.scrollOptions!.scrollController!
+            .animateTo(0, duration: widget.duration, curve: Curves.ease);
       } else {
         ///get first widget attribute of list
         ///
@@ -141,7 +144,7 @@ class _WidgetCardState extends State<WidgetCard> {
 
         widget.model.scrollOptions!.scrollController!.animateTo(
             box.size.height * index,
-            duration: const Duration(milliseconds: 500),
+            duration: widget.duration,
             curve: Curves.ease);
       }
     }
@@ -181,7 +184,7 @@ class _WidgetCardState extends State<WidgetCard> {
               y + h + hCard + (widget.model.subtitle!.length == 1 ? 0 : 50) >
                       MediaQuery.of(context).size.height
                   ? y - hCard - (widget.model.subtitle!.length == 1 ? 24 : 16)
-                  : y + h + 8
+                  : y + h + 24
               :
 
               ///lanscape
@@ -198,7 +201,7 @@ class _WidgetCardState extends State<WidgetCard> {
       child: Material(
         color: Colors.transparent,
         child: AnimatedOpacity(
-          duration: Duration(seconds: 1),
+          duration: widget.duration,
           opacity: top == 0
               ? 0
               : widget.enable
@@ -356,8 +359,7 @@ class _WidgetCardState extends State<WidgetCard> {
                                                     pageController
                                                         .animateToPage(
                                                       0,
-                                                      duration: const Duration(
-                                                          milliseconds: 400),
+                                                      duration: widget.duration,
                                                       curve: Curves.easeInOut,
                                                     );
                                                   }
@@ -373,8 +375,7 @@ class _WidgetCardState extends State<WidgetCard> {
                                                 if (pageController.hasClients) {
                                                   pageController.animateToPage(
                                                     0,
-                                                    duration: const Duration(
-                                                        milliseconds: 400),
+                                                    duration: widget.duration,
                                                     curve: Curves.easeInOut,
                                                   );
                                                 }
@@ -398,7 +399,7 @@ class _WidgetCardState extends State<WidgetCard> {
                                                   ///delay 1 seconds
                                                   ///
                                                   await Future.delayed(
-                                                      Duration(seconds: 1));
+                                                      widget.duration);
                                                 } else {
                                                   ///use manual height
                                                   ///
@@ -427,7 +428,7 @@ class _WidgetCardState extends State<WidgetCard> {
                                                   ///delay 1 seconds
                                                   ///
                                                   await Future.delayed(
-                                                      Duration(seconds: 1));
+                                                      widget.duration);
                                                 }
                                               }
                                             } else {
@@ -435,8 +436,7 @@ class _WidgetCardState extends State<WidgetCard> {
                                               ///
                                               pageController.animateToPage(
                                                 currentPage + 1,
-                                                duration: const Duration(
-                                                    milliseconds: 400),
+                                                duration: widget.duration,
                                                 curve: Curves.easeInOut,
                                               );
                                             }

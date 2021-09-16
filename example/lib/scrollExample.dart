@@ -117,6 +117,7 @@ class _ScrollExampleState extends State<ScrollExample> {
                           )),
                     ],
                     skip: () {},
+                    duration: Duration(milliseconds: 600),
                     nextStep: CoachMakerControl.next,
                     buttonOptions: CoachButtonOptions(
                         skipTitle: 'Lewati',

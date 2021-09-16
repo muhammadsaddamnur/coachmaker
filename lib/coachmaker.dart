@@ -14,6 +14,14 @@ import 'package:flutter/material.dart';
 enum CoachMakerControl { none, next, close }
 
 class CoachMaker {
+  ///first duration delay
+  ///
+  final Duration firstDelay;
+
+  ///duration
+  ///
+  final Duration duration;
+
   ///x = horizontal
   ///y = vertical
   ///h = height
@@ -57,6 +65,8 @@ class CoachMaker {
   ///
   CoachMaker(this.context,
       {required this.initialList,
+      this.firstDelay = const Duration(milliseconds: 1),
+      this.duration = const Duration(seconds: 1),
       this.skip,
       this.nextStep = CoachMakerControl.next,
       this.buttonOptions});
@@ -86,6 +96,7 @@ class CoachMaker {
         y: y - 8,
         h: h + 16,
         w: w + 16,
+        duration: duration,
         padding: 10,
         buttonOptions: buttonOptions ?? CoachButtonOptions(),
         model: initialList[currentIndex],
@@ -118,7 +129,8 @@ class CoachMaker {
   ///
   void show() {
     try {
-      Future.delayed(Duration(milliseconds: 500), () {
+      Future.delayed(currentIndex == 0 ? firstDelay : Duration(milliseconds: 1),
+          () {
         RenderBox box = GlobalObjectKey(initialList[currentIndex].initial!)
             .currentContext!
             .findRenderObject() as RenderBox;
