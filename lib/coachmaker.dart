@@ -61,15 +61,22 @@ class CoachMaker {
   ///
   final CoachButtonOptions? buttonOptions;
 
+  ///custom widget navigator
+  ///
+  final Widget Function(Function? onSkip, Function onNext)? customNavigator;
+
   ///constructor
   ///
-  CoachMaker(this.context,
-      {required this.initialList,
-      this.firstDelay = const Duration(milliseconds: 1),
-      this.duration = const Duration(seconds: 1),
-      this.skip,
-      this.nextStep = CoachMakerControl.next,
-      this.buttonOptions});
+  CoachMaker(
+    this.context, {
+    required this.initialList,
+    this.firstDelay = const Duration(milliseconds: 1),
+    this.duration = const Duration(seconds: 1),
+    this.skip,
+    this.nextStep = CoachMakerControl.next,
+    this.buttonOptions,
+    this.customNavigator,
+  });
 
   ///build overlay block
   ///
@@ -100,6 +107,7 @@ class CoachMaker {
         padding: 10,
         buttonOptions: buttonOptions ?? CoachButtonOptions(),
         model: initialList[currentIndex],
+        customNavigator: customNavigator,
         onSkip: skip == null
             ? null
             : () {

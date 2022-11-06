@@ -1,3 +1,7 @@
+# 0.2.0🐞
+* upgrade flutter SDK ⏭👍
+* add custom widget navigation 😋
+
 # 0.1.1🐞
 * custom duration & first delay ⏱️
 

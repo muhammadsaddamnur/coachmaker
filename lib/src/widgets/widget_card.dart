@@ -11,21 +11,23 @@ class WidgetCard extends StatefulWidget {
   final Function()? onSkip;
   final Function()? onTapNext;
   final Duration duration;
+  final Widget Function(Function? onSkip, Function onNext)? customNavigator;
 
-  const WidgetCard(
-      {Key? key,
-      required this.enable,
-      required this.x,
-      required this.y,
-      required this.h,
-      required this.w,
-      required this.model,
-      required this.duration,
-      this.buttonOptions,
-      this.child,
-      this.onSkip,
-      this.onTapNext})
-      : super(key: key);
+  const WidgetCard({
+    Key? key,
+    required this.enable,
+    required this.x,
+    required this.y,
+    required this.h,
+    required this.w,
+    required this.model,
+    required this.duration,
+    this.buttonOptions,
+    this.child,
+    this.onSkip,
+    this.onTapNext,
+    this.customNavigator,
+  }) : super(key: key);
 
   @override
   _WidgetCardState createState() => _WidgetCardState();
@@ -150,6 +152,102 @@ class _WidgetCardState extends State<WidgetCard> {
     }
   }
 
+  void onNext() async {
+    ///if subtitle length = 1 or pageController has client
+    ///
+    if (widget.model.subtitle!.length == 1 || pageController.hasClients) {
+      ///if current page + 1 == total subtitle length
+      ///
+      if (currentPage + 1 == widget.model.subtitle!.length) {
+        ///if callback not null
+        ///
+        if (widget.model.nextOnTapCallBack != null) {
+          ///using if you want to run method before next step
+          ///return boolean
+          ///
+          bool result = await widget.model.nextOnTapCallBack!.call();
+
+          ///if callback return true
+          ///
+          if (result) {
+            ///next step
+            ///
+            widget.onTapNext!();
+
+            ///if page controller has client
+            ///slide to 0
+            ///
+            if (pageController.hasClients) {
+              pageController.animateToPage(
+                0,
+                duration: widget.duration,
+                curve: Curves.easeInOut,
+              );
+            }
+          }
+        } else {
+          ///next step
+          ///
+          widget.onTapNext!();
+
+          ///if page controller has client
+          ///slide to 0
+          ///
+          if (pageController.hasClients) {
+            pageController.animateToPage(
+              0,
+              duration: widget.duration,
+              curve: Curves.easeInOut,
+            );
+          }
+        }
+
+        ///check if scroll options not null
+        ///
+        if (widget.model.scrollOptions != null) {
+          ///check if scroll options widget is last
+          ///
+          if (widget.model.scrollOptions!.isLast == true) {
+            ///if last scroll to top
+            ///
+            scrollToIndex(
+              index: 0,
+            );
+
+            ///delay 1 seconds
+            ///
+            await Future.delayed(widget.duration);
+          } else {
+            ///use manual height
+            ///
+            if (widget.model.scrollOptions!.manualHeight != null) {
+              ///if not last, scroll to manual height
+              ///
+              scrollToIndex(
+                  manualHeight: widget.model.scrollOptions!.manualHeight);
+            } else {
+              ///if not last, scroll to index
+              ///
+              scrollToIndex(index: widget.model.scrollOptions!.scrollToIndex!);
+            }
+
+            ///delay 1 seconds
+            ///
+            await Future.delayed(widget.duration);
+          }
+        }
+      } else {
+        ///next page (card)
+        ///
+        pageController.animateToPage(
+          currentPage + 1,
+          duration: widget.duration,
+          curve: Curves.easeInOut,
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -187,7 +285,7 @@ class _WidgetCardState extends State<WidgetCard> {
                   : y + h + 24
               :
 
-              ///lanscape
+              ///landscape
               ///
               y > MediaQuery.of(context).size.height / 2
                   ? y - hCard - (widget.model.subtitle!.length == 1 ? 24 : 16)
@@ -307,148 +405,36 @@ class _WidgetCardState extends State<WidgetCard> {
                                                     ),
                                                   )),
                                         ),
-                                  Row(
-                                    children: [
-                                      widget.onSkip == null
-                                          ? SizedBox()
-                                          : MaterialButton(
-                                              onPressed: widget.onSkip,
+                                  widget.customNavigator != null
+                                      ? widget.customNavigator!(
+                                          widget.onSkip ?? null,
+                                          onNext,
+                                        )
+                                      : Row(
+                                          children: [
+                                            (widget.onSkip == null
+                                                ? SizedBox()
+                                                : MaterialButton(
+                                                    onPressed: widget.onSkip,
+                                                    child: Text(
+                                                      '${widget.buttonOptions!.skipTitle}',
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                  )),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: onNext,
                                               child: Text(
-                                                '${widget.buttonOptions!.skipTitle}',
-                                                style: TextStyle(
-                                                    color: Colors.grey),
-                                              )),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          ///if subtitle length = 1 or pageController has client
-                                          ///
-                                          if (widget.model.subtitle!.length ==
-                                                  1 ||
-                                              pageController.hasClients) {
-                                            ///if current page + 1 == total subtitle length
-                                            ///
-                                            if (currentPage + 1 ==
-                                                widget.model.subtitle!.length) {
-                                              ///if callback not null
-                                              ///
-                                              if (widget.model
-                                                      .nextOnTapCallBack !=
-                                                  null) {
-                                                ///using if you want to run method before next step
-                                                ///return boolean
-                                                ///
-                                                bool result = await widget
-                                                    .model.nextOnTapCallBack!
-                                                    .call();
-
-                                                ///if callback return true
-                                                ///
-                                                if (result) {
-                                                  ///next step
-                                                  ///
-                                                  widget.onTapNext!();
-
-                                                  ///if page controller has client
-                                                  ///slide to 0
-                                                  ///
-                                                  if (pageController
-                                                      .hasClients) {
-                                                    pageController
-                                                        .animateToPage(
-                                                      0,
-                                                      duration: widget.duration,
-                                                      curve: Curves.easeInOut,
-                                                    );
-                                                  }
-                                                }
-                                              } else {
-                                                ///next step
-                                                ///
-                                                widget.onTapNext!();
-
-                                                ///if page controller has client
-                                                ///slide to 0
-                                                ///
-                                                if (pageController.hasClients) {
-                                                  pageController.animateToPage(
-                                                    0,
-                                                    duration: widget.duration,
-                                                    curve: Curves.easeInOut,
-                                                  );
-                                                }
-                                              }
-
-                                              ///check if scroll options not null
-                                              ///
-                                              if (widget.model.scrollOptions !=
-                                                  null) {
-                                                ///check if scroll options widget is last
-                                                ///
-                                                if (widget.model.scrollOptions!
-                                                        .isLast ==
-                                                    true) {
-                                                  ///if last scroll to top
-                                                  ///
-                                                  scrollToIndex(
-                                                    index: 0,
-                                                  );
-
-                                                  ///delay 1 seconds
-                                                  ///
-                                                  await Future.delayed(
-                                                      widget.duration);
-                                                } else {
-                                                  ///use manual height
-                                                  ///
-                                                  if (widget
-                                                          .model
-                                                          .scrollOptions!
-                                                          .manualHeight !=
-                                                      null) {
-                                                    ///if not last, scroll to manual height
-                                                    ///
-                                                    scrollToIndex(
-                                                        manualHeight: widget
-                                                            .model
-                                                            .scrollOptions!
-                                                            .manualHeight);
-                                                  } else {
-                                                    ///if not last, scroll to index
-                                                    ///
-                                                    scrollToIndex(
-                                                        index: widget
-                                                            .model
-                                                            .scrollOptions!
-                                                            .scrollToIndex!);
-                                                  }
-
-                                                  ///delay 1 seconds
-                                                  ///
-                                                  await Future.delayed(
-                                                      widget.duration);
-                                                }
-                                              }
-                                            } else {
-                                              ///next page (card)
-                                              ///
-                                              pageController.animateToPage(
-                                                currentPage + 1,
-                                                duration: widget.duration,
-                                                curve: Curves.easeInOut,
-                                              );
-                                            }
-                                          }
-                                        },
-                                        child: Text(
-                                            '${widget.buttonOptions!.buttonTitle}'),
-                                        style:
-                                            widget.buttonOptions!.buttonStyle,
-                                      ),
-                                    ],
-                                  ),
+                                                  '${widget.buttonOptions!.buttonTitle}'),
+                                              style: widget
+                                                  .buttonOptions!.buttonStyle,
+                                            ),
+                                          ],
+                                        ),
                                 ],
                               )
                             ],

@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:coachmaker/coachmaker.dart';
-import 'package:coachmaker/src/models/coach_button_model.dart';
-import 'package:coachmaker/src/models/coach_model.dart';
 import 'package:coachmaker/src/widgets/widget_card.dart';
 import 'package:flutter/material.dart';
 
@@ -15,20 +13,23 @@ class WidgetMain extends StatefulWidget {
   final Function()? onSkip;
   final Function()? onTapNext;
 
-  const WidgetMain(
-      {Key? key,
-      required this.x,
-      required this.y,
-      required this.h,
-      required this.w,
-      this.padding = 8,
-      this.borderRadius = 5,
-      required this.duration,
-      this.onSkip,
-      this.onTapNext,
-      this.buttonOptions,
-      required this.model})
-      : super(key: key);
+  final Widget Function(Function? onSkip, Function onNext)? customNavigator;
+
+  const WidgetMain({
+    Key? key,
+    required this.x,
+    required this.y,
+    required this.h,
+    required this.w,
+    this.padding = 8,
+    this.borderRadius = 5,
+    required this.duration,
+    this.onSkip,
+    this.onTapNext,
+    this.buttonOptions,
+    required this.model,
+    this.customNavigator,
+  }) : super(key: key);
 
   @override
   _WidgetMainState createState() => _WidgetMainState();
@@ -91,7 +92,7 @@ class _WidgetMainState extends State<WidgetMain> {
       y = widget.y - widget.padding;
     });
 
-    ///set varibles with timer
+    ///set variables with timer
     ///
     timer = Timer.periodic(widget.duration, (Timer t) {
       setState(() {
@@ -190,6 +191,7 @@ class _WidgetMainState extends State<WidgetMain> {
           model: widget.model,
           buttonOptions: widget.buttonOptions,
           onSkip: widget.onSkip,
+          customNavigator: widget.customNavigator,
           onTapNext: () async {
             if (enable) {
               setState(() {

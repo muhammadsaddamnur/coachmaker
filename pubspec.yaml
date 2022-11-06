@@ -1,11 +1,11 @@
 name: coachmaker
 description: Simple coach marks with step and dynamic position for your application (coach mark/showcase/tooltip/etc...)
-version: 0.1.1
+version: 0.2.0
 homepage: https://github.com/muhammadsaddamnur/coachmaker
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=2.17.0 <3.0.0"
+  # flutter: ">=1.17.0"
 
 dependencies:
   flutter:
