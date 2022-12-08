@@ -4,7 +4,9 @@ class CoachModel {
   CoachModel(
       {this.initial,
       this.title,
+      this.titleTextStyle,
       this.subtitle,
+      this.subtitleTextStyle,
       this.header,
       this.maxWidth,
       this.alignment = Alignment.center,
