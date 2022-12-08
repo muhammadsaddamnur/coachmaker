@@ -13,7 +13,9 @@ class CoachModel {
 
   String? initial;
   String? title;
+  TextStyle? titleTextStyle;
   List<dynamic>? subtitle;
+  TextStyle? subtitleTextStyle;
   Widget? header;
   double? maxWidth;
   AlignmentGeometry? alignment;

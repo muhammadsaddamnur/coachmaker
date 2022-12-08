@@ -337,20 +337,24 @@ class _WidgetCardState extends State<WidgetCard> {
                             children: [
                               Text(
                                 '${widget.model.title}',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black87,
-                                    fontWeight: FontWeight.bold),
+                                style: widget.model.titleTextStyle ??
+                                    TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
                               widget.model.subtitle!.length == 1
                                   ? Text(
                                       '${widget.model.subtitle!.first}',
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 100,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500),
+                                      style: widget.model.subtitleTextStyle ??
+                                          TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     )
                                   : SizedBox(
                                       height: 50,
@@ -370,11 +374,14 @@ class _WidgetCardState extends State<WidgetCard> {
                                                 '${widget.model.subtitle![index]}',
                                                 maxLines: 3,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.grey,
-                                                    fontWeight:
-                                                        FontWeight.w500),
+                                                style: widget.model
+                                                        .subtitleTextStyle ??
+                                                    TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
                                               );
                                             }),
                                       ),
