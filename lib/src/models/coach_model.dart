@@ -4,7 +4,9 @@ class CoachModel {
   CoachModel(
       {this.initial,
       this.title,
+      this.titleTextStyle,
       this.subtitle,
+      this.subtitleTextStyle,
       this.header,
       this.maxWidth,
       this.alignment = Alignment.center,
@@ -13,7 +15,9 @@ class CoachModel {
 
   String? initial;
   String? title;
+  TextStyle? titleTextStyle;
   List<dynamic>? subtitle;
+  TextStyle? subtitleTextStyle;
   Widget? header;
   double? maxWidth;
   AlignmentGeometry? alignment;
