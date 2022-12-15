@@ -1,3 +1,6 @@
+# 0.2.1🐞
+* add title style & subtitle style on card (@herihermwn) 🙏
+
 # 0.2.0🐞
 * upgrade flutter SDK ⏭👍
 * add custom widget navigation 😋

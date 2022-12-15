@@ -13,7 +13,7 @@ Coach marks are temporary messages that educate users through new or unfamiliar 
 
   
 
-  ![coachmaker](https://img.shields.io/pub/v/coachmaker.svg) ![enter image description here](https://badges.bar/coachmaker/likes) ![enter image description here](https://badges.bar/coachmaker/popularity) ![enter image description here](https://badges.bar/coachmaker/pub%20points) ![enter image description here](https://img.shields.io/github/stars/muhammadsaddamnur/coachmaker.svg?style=flat&logo=github&colorB=deeppink&label=stars)  ![enter image description here](https://img.shields.io/badge/license-MIT-purple.svg) 
+  ![coachmaker](https://img.shields.io/pub/v/coachmaker.svg) ![stars](https://img.shields.io/github/stars/muhammadsaddamnur/coachmaker.svg?style=flat&logo=github&colorB=deeppink&label=stars)  ![license](https://img.shields.io/badge/license-MIT-purple.svg) 
   
 Stt..... this package simple to use 🤫
 

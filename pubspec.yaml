@@ -1,6 +1,6 @@
 name: coachmaker
 description: Simple coach marks with step and dynamic position for your application (coach mark/showcase/tooltip/etc...)
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/muhammadsaddamnur/coachmaker
 
 environment:
