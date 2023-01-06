@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class WidgetCard extends StatefulWidget {
   final double x, y, h, w;
   final bool enable;
+  final Color? color;
   final Widget? child;
   final CoachModel model;
   final CoachButtonOptions? buttonOptions;
@@ -23,6 +24,7 @@ class WidgetCard extends StatefulWidget {
     required this.model,
     required this.duration,
     this.buttonOptions,
+    this.color = Colors.white;
     this.child,
     this.onSkip,
     this.onTapNext,
@@ -317,7 +319,7 @@ class _WidgetCardState extends State<WidgetCard> {
                       : widget.model.maxWidth,
                   key: GlobalObjectKey('pointWidget1234567890'),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: widget.color,
                       borderRadius: BorderRadius.circular(10)),
                   child: Padding(
                     padding: const EdgeInsets.all(10),
